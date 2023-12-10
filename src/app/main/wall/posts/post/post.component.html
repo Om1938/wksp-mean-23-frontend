@@ -1,0 +1,67 @@
+<div class="card mb-3 p-3">
+  <div class="card-header">
+    <div class="d-flex">
+      <div style="display: flex; align-items: center">
+        <app-profilepic
+          [name]="post?.author?.username ?? ''"
+          [variant]="'small'"
+        ></app-profilepic>
+        <b class="mx-3"> {{ post?.author?.username | titlecase }}</b>
+        {{ post?.createdAt | date : "dd/MM/yyyy HH:mm" }}
+      </div>
+      <div class="d-flex justify-content-end">
+        <div>
+          <i
+            class="bi bi-trash"
+            style="cursor: pointer"
+            (click)="deletePost.emit()"
+          ></i>
+        </div>
+      </div>
+    </div>
+    <div class="p-4">
+      <h4>{{ post?.title }}</h4>
+      {{ post?.content }}
+    </div>
+    <div class="card-footer">
+      <div class="d-flex">
+        @if(doIlike){
+        <i class="bi bi-heart-fill" (click)="unlike()"></i>
+        } @else {
+
+        <i class="bi bi-heart" (click)="like()"></i>
+        }
+      </div>
+      <div class="comment-form">
+        <form
+          style="display: flex"
+          [formGroup]="commentForm"
+          (ngSubmit)="comment()"
+        >
+          <div class="form-floating w-100 mx-1">
+            <input
+              type="text"
+              class="form-control username-field"
+              id="post-content"
+              placeholder="username"
+              formControlName="content"
+            />
+            <label for="post-input">Post Header</label>
+          </div>
+          <button type="submit" class="btn btn-primary mx-1">Comment</button>
+        </form>
+      </div>
+      <div class="d-flex comments mt-1" style="flex-direction: column">
+        @for (comment of comments; track $index) {
+        <div class="d-flex my-1">
+          <app-profilepic
+            [name]="comment?.author?.username ?? ''"
+            [variant]="'small'"
+          ></app-profilepic>
+          {{ comment?.content }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

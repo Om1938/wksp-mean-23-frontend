@@ -1,0 +1,5 @@
+<div class="w-100 mt-3">
+  @for (post of posts; track $index) {
+  <app-post [post]="post" (deletePost)="deletePost(post)"></app-post>
+  }
+</div>

@@ -1,0 +1,32 @@
+<div class="w-100 create-post-wrapper p-3 mt-4">
+  <form class="form" [formGroup]="postForm" (ngSubmit)="post()">
+    <app-profilepic
+      [name]="(authService.user$ | async) ?? ''"
+      [variant]="'medium'"
+    ></app-profilepic>
+    <div style="flex: 1" class="mx-3">
+      <div class="form-floating w-100 mb-2">
+        <input
+          type="text"
+          class="form-control username-field"
+          id="post-content"
+          placeholder="username"
+          formControlName="title"
+        />
+        <label for="post-input">Post Header</label>
+      </div>
+      <div class="form-floating mb-2">
+        <textarea
+          type="text"
+          class="form-control username-field"
+          id="post-content"
+          placeholder="username"
+          formControlName="content"
+        >
+        </textarea>
+        <label for="post-input">Post Content</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </div>
+  </form>
+</div>
